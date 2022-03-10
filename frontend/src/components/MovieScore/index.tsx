@@ -1,4 +1,6 @@
 import MovieStars from '../MovieStart/index'
+import './styles.css'
+
 export default function MovieScore() {
     const score = 3.5;
     const count = 13;
