@@ -1,6 +1,4 @@
-import MovieStart from "components/MovieStart";
 import Pagination from "components/Pagination";
-import MovieScore from "components/MovieScore";
 import MovieCard from "components/MovieCard";
 export default function Listing() {
     return (
