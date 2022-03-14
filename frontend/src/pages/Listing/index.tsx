@@ -4,50 +4,57 @@ import axios from "axios";
 import { BASE_URL } from "utils/request";
 import { useEffect, useState } from "react";
 import { Movie, MoviePage } from "types/movie";
+
+
+
 export default function Listing() {
 
-    const [pageNumber,setPageNumber] = useState(0);
+    const [pageNumber, setPageNumber] = useState(0);
 
     const [page, setPage] = useState<MoviePage>({
         content: [],
-    last: true,
-    totalPages: 0,
-    totalElements: 0,
-    size: 12,
-    number: 0,
-    first: true,
-    numberOfElements: 0,
-    empty: true
+        last: true,
+        totalPages: 0,
+        totalElements: 0,
+        size: 12,
+        number: 0,
+        first: true,
+        numberOfElements: 0,
+        empty: true
     })
+
+    const handlePageChange = (newPageNumber : number) =>{
+        setPageNumber(newPageNumber);
+    }
 
     useEffect(() => {
         axios.get(`${BASE_URL}/movies?size=12&page=${pageNumber}`)
-    .then(response => {
-        const data = response.data as MoviePage;
-        setPage(data);
-        
-    });
+            .then(response => {
+                const data = response.data as MoviePage;
+                setPage(data);
+
+            });
     }, [pageNumber]);
 
 
 
     return (
         <>
-      
-            <Pagination />
+
+            <Pagination page={page} onChange={handlePageChange} />
             <div className="container">
                 <div className="row">
                     {page.content.map(movie => {
-                        return(
-                            <div key ={movie.id} className="col-sm-6 col-lg-4 cl-xl-3">
-                        <MovieCard movie={movie} />
-                    </div>
+                        return (
+                            <div key={movie.id} className="col-sm-6 col-lg-4 cl-xl-3">
+                                <MovieCard movie={movie} />
+                            </div>
 
                         )
                     })}
-                    
 
-            </div>
+
+                </div>
             </div>
         </>
     );
