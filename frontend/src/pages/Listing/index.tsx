@@ -3,7 +3,7 @@ import MovieCard from "components/MovieCard";
 import axios from "axios";
 import { BASE_URL } from "utils/request";
 import { useEffect, useState } from "react";
-import { Movie, MoviePage } from "types/movie";
+import { MoviePage } from "types/movie";
 
 
 
