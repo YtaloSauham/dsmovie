@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.dsmovie.dto.MovieDTO;
 import com.devsuperior.dsmovie.entities.Movie;
+import com.devsuperior.dsmovie.entities.User;
 import com.devsuperior.dsmovie.repositories.MovieRepository;
 
 @Service
@@ -31,6 +32,26 @@ public class MovieService {
 	public MovieDTO findById(Long id) {
 		Movie result =  repository.findById(id).get();
 		MovieDTO dto= new MovieDTO(result);
+		return dto;	
+		
+	}
+	
+	@Transactional(readOnly = true)
+	
+	public MovieDTO saveMovie(MovieDTO dto) {
+		
+		Movie movie = repository.findById(dto.getId()).get();
+		if(movie ==null) {
+			movie = new Movie();
+			movie.setTitle(dto.getTitle());
+			movie.setScore(dto.getScore());
+			movie.setCount(dto.getCount());
+			movie.setImage(dto.getImage());
+			movie = repository.save(movie);
+			
+		}
+		
+		
 		return dto;	
 		
 	}
